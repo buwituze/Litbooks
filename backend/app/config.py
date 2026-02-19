@@ -12,6 +12,9 @@ class Settings(BaseSettings):
     SMTP_USERNAME: Optional[str] = None
     SMTP_PASSWORD: Optional[str] = None
     FROM_EMAIL: Optional[str] = None
+    ADMIN_EMAIL: Optional[str] = None
+    ADMIN_PASSWORD: Optional[str] = None
+    ADMIN_FULL_NAME: str = "Admin User"
 
     class Config:
         env_file = ".env"

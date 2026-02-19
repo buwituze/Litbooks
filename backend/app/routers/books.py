@@ -6,7 +6,7 @@ from typing import List, Optional
 from app.database import get_db
 from app.models import Book, User, Tag
 from app.schemas import BookCreate, BookUpdate, BookResponse
-from app.dependencies import get_current_user
+from app.dependencies import get_current_user, get_admin_user
 
 
 router = APIRouter(prefix="/books", tags=["Books"])
@@ -28,7 +28,7 @@ async def get_or_create_tag(db: AsyncSession, tag_name: str) -> Tag:
 @router.post("/", response_model=BookResponse, status_code=status.HTTP_201_CREATED)
 async def create_book(
     book_data: BookCreate,
-    current_user: User = Depends(get_current_user),
+    current_user: User = Depends(get_admin_user),
     db: AsyncSession = Depends(get_db)
 ):
     new_book = Book(
@@ -107,7 +107,7 @@ async def get_book(book_id: int, db: AsyncSession = Depends(get_db)):
 async def update_book(
     book_id: int,
     book_data: BookUpdate,
-    current_user: User = Depends(get_current_user),
+    current_user: User = Depends(get_admin_user),
     db: AsyncSession = Depends(get_db)
 ):
     result = await db.execute(
@@ -121,12 +121,6 @@ async def update_book(
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="Book not found"
-        )
-    
-    if book.creator_id != current_user.id:
-        raise HTTPException(
-            status_code=status.HTTP_403_FORBIDDEN,
-            detail="You can only update your own books"
         )
     
     update_data = book_data.model_dump(exclude_unset=True)
@@ -150,7 +144,7 @@ async def update_book(
 @router.delete("/{book_id}", status_code=status.HTTP_204_NO_CONTENT)
 async def delete_book(
     book_id: int,
-    current_user: User = Depends(get_current_user),
+    current_user: User = Depends(get_admin_user),
     db: AsyncSession = Depends(get_db)
 ):
     result = await db.execute(select(Book).filter(Book.id == book_id))
@@ -160,12 +154,6 @@ async def delete_book(
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="Book not found"
-        )
-    
-    if book.creator_id != current_user.id:
-        raise HTTPException(
-            status_code=status.HTTP_403_FORBIDDEN,
-            detail="You can only delete your own books"
         )
     
     await db.delete(book)
