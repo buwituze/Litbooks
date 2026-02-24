@@ -16,7 +16,11 @@ export const authApi = {
   },
 
   register: async (credentials: RegisterCredentials): Promise<User> => {
-    const response = await axiosInstance.post<User>('/auth/register', credentials);
+    const response = await axiosInstance.post<User>('/auth/register', {
+      email: credentials.email,
+      full_name: credentials.full_name,
+      password: credentials.password,
+    });
     return response.data;
   },
 

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../hooks/useRedux";
 import {
-  fetchMyBooks,
+  fetchBooks,
   deleteBook,
   createBook,
   removeBookOptimistically,
@@ -11,20 +11,34 @@ import { BookForm } from "../components/common/BookForm";
 import { BookListSkeleton } from "../components/skeletons/SkeletonLoaders";
 import type { BookFormData } from "../utils/validation";
 import type { Book } from "../types";
+import { useNavigate } from "react-router-dom";
 
 /**
- * My Books page - shows books owned by the current user
+ * My Books page - shows books created by the current admin user
+ * Only accessible to admin users
  */
 const MyBooksPage = () => {
   const dispatch = useAppDispatch();
-  const { myBooks, isLoading, error } = useAppSelector((state) => state.books);
+  const { books, isLoading, error } = useAppSelector((state) => state.books);
+  const { user } = useAppSelector((state) => state.auth);
   const [showAddModal, setShowAddModal] = useState(false);
+  const navigate = useNavigate();
+
+  // Redirect non-admin users
+  useEffect(() => {
+    if (user && user.role !== "admin") {
+      navigate("/books");
+    }
+  }, [user, navigate]);
 
   useEffect(() => {
-    dispatch(fetchMyBooks());
+    dispatch(fetchBooks());
   }, [dispatch]);
 
-  const handleDelete = async (id: string) => {
+  // Filter books created by current user
+  const myBooks = books.filter((book) => book.creator_id === user?.id);
+
+  const handleDelete = async (id: number) => {
     // Optimistic update
     dispatch(removeBookOptimistically(id));
     await dispatch(deleteBook(id));
@@ -34,7 +48,7 @@ const MyBooksPage = () => {
     const result = await dispatch(createBook(data));
     if (createBook.fulfilled.match(result)) {
       setShowAddModal(false);
-      dispatch(fetchMyBooks()); // Refresh the list
+      dispatch(fetchBooks()); // Refresh the list
     }
   };
 

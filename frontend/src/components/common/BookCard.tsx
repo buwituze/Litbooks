@@ -4,7 +4,7 @@ import { truncateText, formatDate } from "../../utils/helpers";
 
 interface BookCardProps {
   book: Book;
-  onDelete?: (id: string) => void;
+  onDelete?: (id: number) => void;
   showActions?: boolean;
 }
 
@@ -30,9 +30,9 @@ export const BookCard = ({
     >
       <div className="relative">
         <div className="w-full h-48 bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center">
-          {book.cover_url ? (
+          {book.image_url ? (
             <img
-              src={book.cover_url}
+              src={book.image_url}
               alt={book.title}
               className="w-full h-full object-cover"
             />
@@ -40,9 +40,9 @@ export const BookCard = ({
             <span className="text-6xl">📖</span>
           )}
         </div>
-        {book.genre && (
+        {book.tags && book.tags.length > 0 && (
           <span className="absolute top-2 right-2 bg-blue-600 text-white text-xs px-2 py-1 rounded-full">
-            {book.genre}
+            {book.tags[0].name}
           </span>
         )}
       </div>
@@ -57,8 +57,19 @@ export const BookCard = ({
             {truncateText(book.description, 100)}
           </p>
         )}
+        {book.tags && book.tags.length > 0 && (
+          <div className="flex flex-wrap gap-1 mb-3">
+            {book.tags.slice(0, 3).map((tag) => (
+              <span
+                key={tag.id}
+                className="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded"
+              >
+                {tag.name}
+              </span>
+            ))}
+          </div>
+        )}
         <div className="flex items-center justify-between text-xs text-gray-400">
-          <span>{book.published_year || "N/A"}</span>
           <span>{formatDate(book.created_at)}</span>
         </div>
 

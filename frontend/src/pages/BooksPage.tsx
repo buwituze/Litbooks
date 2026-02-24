@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useCallback } from "react";
 import { useAppDispatch, useAppSelector } from "../hooks/useRedux";
 import { fetchBooks, setSearchQuery } from "../features/books/booksSlice";
 import { BookCard } from "../components/common/BookCard";
@@ -19,9 +19,12 @@ const BooksPage = () => {
     dispatch(fetchBooks());
   }, [dispatch]);
 
-  const handleSearch = (query: string) => {
-    dispatch(setSearchQuery(query));
-  };
+  const handleSearch = useCallback(
+    (query: string) => {
+      dispatch(setSearchQuery(query));
+    },
+    [dispatch],
+  );
 
   if (error) {
     return (

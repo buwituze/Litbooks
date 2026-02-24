@@ -3,6 +3,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { bookSchema, type BookFormData } from "../../utils/validation";
 import type { Book } from "../../types";
 import { ButtonLoader } from "./LoadingSpinner";
+import { useState } from "react";
 
 interface BookFormProps {
   onSubmit: (data: BookFormData) => void;
@@ -20,6 +21,11 @@ export const BookForm = ({
   isLoading = false,
   submitLabel = "Submit",
 }: BookFormProps) => {
+  const [tagInput, setTagInput] = useState("");
+  const [tags, setTags] = useState<string[]>(
+    initialData?.tags?.map((tag) => tag.name) || [],
+  );
+
   const {
     register,
     handleSubmit,
@@ -30,17 +36,36 @@ export const BookForm = ({
       ? {
           title: initialData.title,
           author: initialData.author,
-          isbn: initialData.isbn || "",
-          published_year: initialData.published_year,
-          genre: initialData.genre || "",
           description: initialData.description || "",
-          cover_url: initialData.cover_url || "",
+          image_url: initialData.image_url || "",
+          tags: initialData.tags?.map((tag) => tag.name) || [],
         }
       : undefined,
   });
 
+  const handleAddTag = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter" && tagInput.trim()) {
+      e.preventDefault();
+      if (!tags.includes(tagInput.trim().toLowerCase())) {
+        setTags([...tags, tagInput.trim().toLowerCase()]);
+      }
+      setTagInput("");
+    }
+  };
+
+  const handleRemoveTag = (tagToRemove: string) => {
+    setTags(tags.filter((tag) => tag !== tagToRemove));
+  };
+
+  const handleFormSubmit = (data: BookFormData) => {
+    onSubmit({
+      ...data,
+      tags,
+    });
+  };
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+    <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-4">
       <div>
         <label
           htmlFor="title"
@@ -77,82 +102,58 @@ export const BookForm = ({
         )}
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div>
-          <label
-            htmlFor="isbn"
-            className="block text-sm font-medium text-gray-700"
-          >
-            ISBN
-          </label>
-          <input
-            {...register("isbn")}
-            type="text"
-            id="isbn"
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm px-3 py-2 border"
-          />
-          {errors.isbn && (
-            <p className="mt-1 text-sm text-red-600">{errors.isbn.message}</p>
-          )}
-        </div>
-
-        <div>
-          <label
-            htmlFor="published_year"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Published Year
-          </label>
-          <input
-            {...register("published_year", { valueAsNumber: true })}
-            type="number"
-            id="published_year"
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm px-3 py-2 border"
-          />
-          {errors.published_year && (
-            <p className="mt-1 text-sm text-red-600">
-              {errors.published_year.message}
-            </p>
-          )}
-        </div>
-      </div>
-
       <div>
         <label
-          htmlFor="genre"
+          htmlFor="image_url"
           className="block text-sm font-medium text-gray-700"
         >
-          Genre
+          Image URL
         </label>
         <input
-          {...register("genre")}
+          {...register("image_url")}
           type="text"
-          id="genre"
+          id="image_url"
           className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm px-3 py-2 border"
         />
-        {errors.genre && (
-          <p className="mt-1 text-sm text-red-600">{errors.genre.message}</p>
-        )}
-      </div>
-
-      <div>
-        <label
-          htmlFor="cover_url"
-          className="block text-sm font-medium text-gray-700"
-        >
-          Cover URL
-        </label>
-        <input
-          {...register("cover_url")}
-          type="text"
-          id="cover_url"
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm px-3 py-2 border"
-        />
-        {errors.cover_url && (
+        {errors.image_url && (
           <p className="mt-1 text-sm text-red-600">
-            {errors.cover_url.message}
+            {errors.image_url.message}
           </p>
         )}
+      </div>
+
+      <div>
+        <label
+          htmlFor="tags"
+          className="block text-sm font-medium text-gray-700"
+        >
+          Tags
+        </label>
+        <input
+          type="text"
+          value={tagInput}
+          onChange={(e) => setTagInput(e.target.value)}
+          onKeyDown={handleAddTag}
+          placeholder="Type a tag and press Enter"
+          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm px-3 py-2 border"
+        />
+        <div className="mt-2 flex flex-wrap gap-2">
+          {tags.map((tag) => (
+            <span
+              key={tag}
+              className="inline-flex items-center gap-1 px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm"
+            >
+              {tag}
+              <button
+                type="button"
+                onClick={() => handleRemoveTag(tag)}
+                className="text-blue-500 hover:text-blue-700"
+              >
+                ×
+              </button>
+            </span>
+          ))}
+        </div>
       </div>
 
       <div>

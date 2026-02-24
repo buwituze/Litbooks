@@ -1,8 +1,9 @@
 // User and Authentication types
 export interface User {
-  id: string;
+  id: number;
   email: string;
-  username: string;
+  full_name: string;
+  role: string;
   created_at: string;
 }
 
@@ -12,7 +13,7 @@ export interface LoginCredentials {
 }
 
 export interface RegisterCredentials {
-  username: string;
+  full_name: string;
   email: string;
   password: string;
 }
@@ -22,17 +23,21 @@ export interface AuthResponse {
   token_type: string;
 }
 
+// Tag types
+export interface Tag {
+  id: number;
+  name: string;
+}
+
 // Book types
 export interface Book {
-  id: string;
+  id: number;
   title: string;
   author: string;
-  isbn?: string;
-  published_year?: number;
-  genre?: string;
   description?: string;
-  cover_url?: string;
-  owner_id: string;
+  image_url?: string;
+  creator_id: number;
+  tags: Tag[];
   created_at: string;
   updated_at: string;
 }
@@ -40,11 +45,9 @@ export interface Book {
 export interface CreateBookInput {
   title: string;
   author: string;
-  isbn?: string;
-  published_year?: number;
-  genre?: string;
   description?: string;
-  cover_url?: string;
+  image_url?: string;
+  tags?: string[];
 }
 
 export interface UpdateBookInput extends Partial<CreateBookInput> {}

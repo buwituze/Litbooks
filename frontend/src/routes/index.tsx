@@ -24,19 +24,11 @@ const routes: RouteObject[] = [
       },
       {
         path: "books",
-        element: (
-          <ProtectedRoute>
-            <BooksPage />
-          </ProtectedRoute>
-        ),
+        element: <BooksPage />,
       },
       {
         path: "books/:id",
-        element: (
-          <ProtectedRoute>
-            <BookDetailPage />
-          </ProtectedRoute>
-        ),
+        element: <BookDetailPage />,
       },
       {
         path: "my-books",

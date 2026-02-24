@@ -28,7 +28,7 @@ const RegisterPage = () => {
   const onSubmit = async (data: RegisterFormData) => {
     const result = await dispatch(
       registerUser({
-        username: data.username,
+        full_name: data.full_name,
         email: data.email,
         password: data.password,
       }),
@@ -59,21 +59,21 @@ const RegisterPage = () => {
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         <div>
           <label
-            htmlFor="username"
+            htmlFor="full_name"
             className="block text-sm font-medium text-gray-700"
           >
-            Username
+            Full Name
           </label>
           <input
-            {...register("username")}
-            id="username"
+            {...register("full_name")}
+            id="full_name"
             type="text"
-            autoComplete="username"
+            autoComplete="name"
             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
           />
-          {errors.username && (
+          {errors.full_name && (
             <p className="mt-1 text-sm text-red-600">
-              {errors.username.message}
+              {errors.full_name.message}
             </p>
           )}
         </div>

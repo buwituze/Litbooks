@@ -40,7 +40,7 @@ export const register = createAsyncThunk(
       const user = await authApi.register(credentials);
       // Auto-login after registration
       const loginResponse = await authApi.login({
-        username: credentials.username,
+        username: credentials.email,
         password: credentials.password,
       });
       localStorage.setItem('access_token', loginResponse.access_token);

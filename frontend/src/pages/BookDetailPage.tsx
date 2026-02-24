@@ -23,7 +23,7 @@ const BookDetailPage = () => {
 
   useEffect(() => {
     if (id) {
-      dispatch(fetchBook(id));
+      dispatch(fetchBook(Number(id)));
     }
     return () => {
       dispatch(clearCurrentBook());
@@ -32,7 +32,7 @@ const BookDetailPage = () => {
 
   const handleDelete = async () => {
     if (id && confirm("Are you sure you want to delete this book?")) {
-      await dispatch(deleteBook(id));
+      await dispatch(deleteBook(Number(id)));
       navigate("/books");
     }
   };
@@ -65,8 +65,6 @@ const BookDetailPage = () => {
     );
   }
 
-  const isOwner = user?.id === currentBook.owner_id;
-
   return (
     <div className="max-w-4xl mx-auto">
       <Link
@@ -80,9 +78,9 @@ const BookDetailPage = () => {
         <div className="md:flex">
           <div className="md:w-1/3">
             <div className="h-96 bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center">
-              {currentBook.cover_url ? (
+              {currentBook.image_url ? (
                 <img
-                  src={currentBook.cover_url}
+                  src={currentBook.image_url}
                   alt={currentBook.title}
                   className="w-full h-full object-cover"
                 />
@@ -100,30 +98,37 @@ const BookDetailPage = () => {
                 </h1>
                 <p className="text-xl text-gray-600">by {currentBook.author}</p>
               </div>
-              {currentBook.genre && (
+              {currentBook.tags && currentBook.tags.length > 0 && (
                 <span className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">
-                  {currentBook.genre}
+                  {currentBook.tags[0].name}
                 </span>
               )}
             </div>
 
             <div className="space-y-3 mb-6">
-              {currentBook.isbn && (
-                <div>
-                  <span className="font-semibold">ISBN:</span>{" "}
-                  {currentBook.isbn}
-                </div>
-              )}
-              {currentBook.published_year && (
-                <div>
-                  <span className="font-semibold">Published:</span>{" "}
-                  {currentBook.published_year}
-                </div>
-              )}
               <div>
                 <span className="font-semibold">Added:</span>{" "}
                 {formatDate(currentBook.created_at)}
               </div>
+              <div>
+                <span className="font-semibold">Last Updated:</span>{" "}
+                {formatDate(currentBook.updated_at)}
+              </div>
+              {currentBook.tags && currentBook.tags.length > 0 && (
+                <div>
+                  <span className="font-semibold">Tags:</span>{" "}
+                  <div className="flex flex-wrap gap-2 mt-1">
+                    {currentBook.tags.map((tag) => (
+                      <span
+                        key={tag.id}
+                        className="px-2 py-1 bg-gray-100 text-gray-700 rounded text-sm"
+                      >
+                        {tag.name}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
 
             {currentBook.description && (
@@ -133,7 +138,7 @@ const BookDetailPage = () => {
               </div>
             )}
 
-            {isOwner && (
+            {user?.role === "admin" && (
               <div className="flex space-x-4">
                 <Link
                   to={`/books/${currentBook.id}/edit`}

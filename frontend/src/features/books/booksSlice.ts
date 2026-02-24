@@ -5,7 +5,6 @@ import type { Book, CreateBookInput, UpdateBookInput } from '../../types';
 interface BooksState {
   books: Book[];
   currentBook: Book | null;
-  myBooks: Book[];
   isLoading: boolean;
   error: string | null;
   searchQuery: string;
@@ -15,7 +14,6 @@ interface BooksState {
 const initialState: BooksState = {
   books: [],
   currentBook: null,
-  myBooks: [],
   isLoading: false,
   error: null,
   searchQuery: '',
@@ -25,7 +23,7 @@ const initialState: BooksState = {
 // Async thunks
 export const fetchBooks = createAsyncThunk(
   'books/fetchBooks',
-  async (params: { skip?: number; limit?: number; search?: string } | undefined, { rejectWithValue }) => {
+  async (params: { skip?: number; limit?: number; search?: string; tag?: string } | undefined, { rejectWithValue }) => {
     try {
       const books = await booksApi.getBooks(params);
       return books;
@@ -37,7 +35,7 @@ export const fetchBooks = createAsyncThunk(
 
 export const fetchBook = createAsyncThunk(
   'books/fetchBook',
-  async (id: string, { rejectWithValue }) => {
+  async (id: number, { rejectWithValue }) => {
     try {
       const book = await booksApi.getBook(id);
       return book;
@@ -61,7 +59,7 @@ export const createBook = createAsyncThunk(
 
 export const updateBook = createAsyncThunk(
   'books/updateBook',
-  async ({ id, book }: { id: string; book: UpdateBookInput }, { rejectWithValue }) => {
+  async ({ id, book }: { id: number; book: UpdateBookInput }, { rejectWithValue }) => {
     try {
       const updatedBook = await booksApi.updateBook(id, book);
       return updatedBook;
@@ -73,24 +71,12 @@ export const updateBook = createAsyncThunk(
 
 export const deleteBook = createAsyncThunk(
   'books/deleteBook',
-  async (id: string, { rejectWithValue }) => {
+  async (id: number, { rejectWithValue }) => {
     try {
       await booksApi.deleteBook(id);
       return id;
     } catch (error: any) {
       return rejectWithValue(error.response?.data?.detail || 'Failed to delete book');
-    }
-  }
-);
-
-export const fetchMyBooks = createAsyncThunk(
-  'books/fetchMyBooks',
-  async (_, { rejectWithValue }) => {
-    try {
-      const books = await booksApi.getMyBooks();
-      return books;
-    } catch (error: any) {
-      return rejectWithValue(error.response?.data?.detail || 'Failed to fetch your books');
     }
   }
 );
@@ -107,7 +93,7 @@ const booksSlice = createSlice({
           (book) =>
             book.title.toLowerCase().includes(action.payload.toLowerCase()) ||
             book.author.toLowerCase().includes(action.payload.toLowerCase()) ||
-            book.genre?.toLowerCase().includes(action.payload.toLowerCase())
+            book.tags?.some(tag => tag.name.toLowerCase().includes(action.payload.toLowerCase()))
         );
       } else {
         state.filteredBooks = state.books;
@@ -125,7 +111,7 @@ const booksSlice = createSlice({
       state.filteredBooks.unshift(action.payload);
     },
     // Optimistic update for book deletion
-    removeBookOptimistically: (state, action: PayloadAction<string>) => {
+    removeBookOptimistically: (state, action: PayloadAction<number>) => {
       state.books = state.books.filter((book) => book.id !== action.payload);
       state.filteredBooks = state.filteredBooks.filter((book) => book.id !== action.payload);
     },
@@ -215,21 +201,6 @@ const booksSlice = createSlice({
         state.filteredBooks = state.filteredBooks.filter((book) => book.id !== action.payload);
       })
       .addCase(deleteBook.rejected, (state, action) => {
-        state.isLoading = false;
-        state.error = action.payload as string;
-      });
-
-    // Fetch my books
-    builder
-      .addCase(fetchMyBooks.pending, (state) => {
-        state.isLoading = true;
-        state.error = null;
-      })
-      .addCase(fetchMyBooks.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.myBooks = action.payload;
-      })
-      .addCase(fetchMyBooks.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload as string;
       });

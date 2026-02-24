@@ -6,12 +6,13 @@ export const booksApi = {
     skip?: number;
     limit?: number;
     search?: string;
+    tag?: string;
   }): Promise<Book[]> => {
     const response = await axiosInstance.get<Book[]>('/books/', { params });
     return response.data;
   },
 
-  getBook: async (id: string): Promise<Book> => {
+  getBook: async (id: number): Promise<Book> => {
     const response = await axiosInstance.get<Book>(`/books/${id}`);
     return response.data;
   },
@@ -21,17 +22,12 @@ export const booksApi = {
     return response.data;
   },
 
-  updateBook: async (id: string, book: UpdateBookInput): Promise<Book> => {
+  updateBook: async (id: number, book: UpdateBookInput): Promise<Book> => {
     const response = await axiosInstance.put<Book>(`/books/${id}`, book);
     return response.data;
   },
 
-  deleteBook: async (id: string): Promise<void> => {
+  deleteBook: async (id: number): Promise<void> => {
     await axiosInstance.delete(`/books/${id}`);
-  },
-
-  getMyBooks: async (): Promise<Book[]> => {
-    const response = await axiosInstance.get<Book[]>('/books/my-books');
-    return response.data;
   },
 };
