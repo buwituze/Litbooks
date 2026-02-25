@@ -12,29 +12,29 @@ const HomePage = () => {
     <div className="min-h-screen">
       {/* Hero Section */}
       <div
-        className="relative h-[600px] bg-cover bg-center bg-no-repeat flex items-center justify-center"
+        className="relative h-[500px] m-4 bg-cover bg-center bg-no-repeat flex items-center justify-center rounded-2xl"
         style={{
           backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1481627834876-b7833e8f5570?q=80&w=1920')`,
         }}
       >
         <div className="text-center text-white px-4 z-10">
-          <h1 className="text-6xl md:text-7xl font-bold mb-6 drop-shadow-lg">
+          <h1 className="text-6xl md:text-6xl font-bold mb-6 drop-shadow-lg">
             Welcome to Litbooks
           </h1>
-          <p className="text-2xl md:text-3xl mb-8 drop-shadow-md">
+          <p className="text-2xl md:text-2xl mb-8 drop-shadow-md">
             Discover, Review, and Celebrate African Literature
           </p>
           <div className="space-x-4">
             <Link
               to="/books"
-              className="inline-block px-10 py-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition text-lg font-semibold shadow-lg hover:shadow-xl transform hover:scale-105"
+              className="inline-block px-8 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition text-lg font-semibold shadow-lg hover:shadow-xl transform hover:scale-105"
             >
               Browse Books
             </Link>
             {!isAuthenticated && (
               <Link
                 to="/register"
-                className="inline-block px-10 py-4 bg-white text-gray-900 rounded-lg hover:bg-gray-100 transition text-lg font-semibold shadow-lg hover:shadow-xl transform hover:scale-105"
+                className="inline-block px-8 py-3 bg-white text-gray-900 rounded-lg hover:bg-gray-100 transition text-lg font-semibold shadow-lg hover:shadow-xl transform hover:scale-105"
               >
                 Get Started
               </Link>

@@ -66,7 +66,7 @@ const BooksPage = () => {
           <p className="text-gray-500">
             {searchQuery
               ? "Try a different search term"
-              : "Start by adding your first book!"}
+              : "Come bacck in a moment!"}
           </p>
         </div>
       ) : (
