@@ -1,4 +1,5 @@
 import { Link, useNavigate, useLocation } from "react-router-dom";
+import { Library } from "lucide-react";
 import { useAuth } from "../../hooks/useAuth";
 import { useAppDispatch } from "../../hooks/useRedux";
 import { logout } from "../../features/auth/authSlice";
@@ -25,9 +26,7 @@ const Navbar = () => {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 group">
-            <div className="text-2xl group-hover:scale-110 transition-transform">
-              📚
-            </div>
+            <Library className="w-8 h-8 text-blue-600 group-hover:scale-110 transition-transform" />
             <span className="text-xl font-bold text-gray-900">Litbooks</span>
           </Link>
 

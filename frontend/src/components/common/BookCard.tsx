@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { BookOpen } from "lucide-react";
 import type { Book } from "../../types";
 import { truncateText, formatDate } from "../../utils/helpers";
 
@@ -37,7 +38,7 @@ export const BookCard = ({
               className="w-full h-full object-cover"
             />
           ) : (
-            <span className="text-6xl">📖</span>
+            <BookOpen className="w-16 h-16 text-white" />
           )}
         </div>
         {book.tags && book.tags.length > 0 && (

@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
+import { BookOpen } from "lucide-react";
 import { useAppDispatch, useAppSelector } from "../hooks/useRedux";
 import {
   fetchBook,
@@ -85,7 +86,7 @@ const BookDetailPage = () => {
                   className="w-full h-full object-cover"
                 />
               ) : (
-                <span className="text-9xl">📖</span>
+                <BookOpen className="w-32 h-32 text-white" />
               )}
             </div>
           </div>

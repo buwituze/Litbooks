@@ -1,4 +1,5 @@
 import { useEffect, useCallback } from "react";
+import { Library } from "lucide-react";
 import { useAppDispatch, useAppSelector } from "../hooks/useRedux";
 import { fetchBooks, setSearchQuery } from "../features/books/booksSlice";
 import { BookCard } from "../components/common/BookCard";
@@ -56,7 +57,9 @@ const BooksPage = () => {
         <BookListSkeleton />
       ) : filteredBooks.length === 0 ? (
         <div className="text-center py-12">
-          <div className="text-6xl mb-4">📚</div>
+          <div className="flex justify-center mb-4">
+            <Library className="w-20 h-20 text-gray-400" />
+          </div>
           <h3 className="text-xl font-semibold text-gray-700 mb-2">
             No books found
           </h3>

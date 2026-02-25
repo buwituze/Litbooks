@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { BookOpen, Star, Heart } from "lucide-react";
 import { useAuth } from "../hooks/useAuth";
 
 /**
@@ -21,7 +22,7 @@ const HomePage = () => {
             Welcome to Litbooks
           </h1>
           <p className="text-2xl md:text-3xl mb-8 drop-shadow-md">
-            Your personal library management system
+            Discover, Review, and Celebrate African Literature
           </p>
           <div className="space-x-4">
             <Link
@@ -46,37 +47,43 @@ const HomePage = () => {
       <div className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
           <h2 className="text-4xl font-bold text-center text-gray-900 mb-12">
-            Everything You Need to Manage Your Library
+            Your Gateway to African Literature
           </h2>
           <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
             <div className="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition transform hover:-translate-y-2">
-              <div className="text-6xl mb-6 text-center">📖</div>
+              <div className="flex justify-center mb-6">
+                <BookOpen className="w-16 h-16 text-blue-600" />
+              </div>
               <h3 className="text-2xl font-bold mb-4 text-center text-gray-900">
-                Organize
+                Discover
               </h3>
               <p className="text-gray-600 text-center leading-relaxed">
-                Keep track of all your books in one place. Categorize, tag, and
-                organize your collection effortlessly.
+                Explore a curated collection of African books spanning diverse
+                genres, authors, and perspectives.
               </p>
             </div>
             <div className="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition transform hover:-translate-y-2">
-              <div className="text-6xl mb-6 text-center">🔍</div>
+              <div className="flex justify-center mb-6">
+                <Star className="w-16 h-16 text-yellow-500" />
+              </div>
               <h3 className="text-2xl font-bold mb-4 text-center text-gray-900">
-                Search
+                Rate & Review
               </h3>
               <p className="text-gray-600 text-center leading-relaxed">
-                Find books quickly with our powerful search. Filter by title,
-                author, genre, or any custom criteria.
+                Share your thoughts and rate books. Help others discover their
+                next great read through your reviews.
               </p>
             </div>
             <div className="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition transform hover:-translate-y-2">
-              <div className="text-6xl mb-6 text-center">✨</div>
+              <div className="flex justify-center mb-6">
+                <Heart className="w-16 h-16 text-red-500" />
+              </div>
               <h3 className="text-2xl font-bold mb-4 text-center text-gray-900">
-                Manage
+                Curate Favorites
               </h3>
               <p className="text-gray-600 text-center leading-relaxed">
-                Add, edit, and delete books effortlessly. Keep your library
-                up-to-date with just a few clicks.
+                Save your favorite African books to your personal collection.
+                Build your reading wishlist effortlessly.
               </p>
             </div>
           </div>
@@ -91,8 +98,8 @@ const HomePage = () => {
               Ready to Start Your Reading Journey?
             </h2>
             <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-              Join thousands of book lovers who trust Litbooks to manage their
-              personal libraries.
+              Join book lovers celebrating African literature. Discover your
+              next favorite book and share your reading experiences.
             </p>
             <Link
               to="/register"

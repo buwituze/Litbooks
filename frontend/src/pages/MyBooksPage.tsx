@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Library } from "lucide-react";
 import { useAppDispatch, useAppSelector } from "../hooks/useRedux";
 import {
   fetchBooks,
@@ -78,7 +79,9 @@ const MyBooksPage = () => {
         <BookListSkeleton />
       ) : myBooks.length === 0 ? (
         <div className="text-center py-12">
-          <div className="text-6xl mb-4">📚</div>
+          <div className="flex justify-center mb-4">
+            <Library className="w-20 h-20 text-gray-400" />
+          </div>
           <h3 className="text-xl font-semibold text-gray-700 mb-2">
             No books yet
           </h3>
