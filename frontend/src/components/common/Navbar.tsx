@@ -20,29 +20,27 @@ const Navbar = () => {
   const isActive = (path: string) => location.pathname === path;
 
   return (
-    <nav className="bg-white/95 backdrop-blur-sm shadow-sm sticky top-0 z-50 border-b border-gray-100 mx-10">
-      <div className="w-full px-4 sm:px-6 lg:px-8">
+    <nav className="bg-white shadow-sm sticky top-0 z-50 border-b border-gray-200">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <div className="flex items-center gap-2">
-            <Link to="/" className="flex items-center gap-2 ml-10 group">
-              <div className="text-2xl group-hover:scale-110 transition-transform duration-200">
-                📚
-              </div>
-              <span className="text-xl font-bold">Litbooks</span>
-            </Link>
-          </div>
+          <Link to="/" className="flex items-center gap-2 group">
+            <div className="text-2xl group-hover:scale-110 transition-transform">
+              📚
+            </div>
+            <span className="text-xl font-bold text-gray-900">Litbooks</span>
+          </Link>
 
           {/* Navigation Links and User Actions */}
-          <div className="flex items-center gap-8">
+          <div className="flex items-center gap-6">
             {/* Navigation Menu */}
-            <div className="hidden md:flex items-center space-x-3">
+            <div className="hidden md:flex items-center gap-2">
               <Link
                 to="/books"
-                className={`px-5 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 ${
+                className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                   isActive("/books")
-                    ? "bg-blue-50 text-blue-600 shadow-sm"
-                    : "text-gray-600 hover:text-blue-600 hover:bg-gray-50"
+                    ? "bg-blue-600 text-white"
+                    : "text-gray-700 hover:bg-gray-100"
                 }`}
               >
                 All Books
@@ -50,10 +48,10 @@ const Navbar = () => {
               {isAuthenticated && user?.role === "admin" && (
                 <Link
                   to="/my-books"
-                  className={`px-5 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 ${
+                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                     isActive("/my-books")
-                      ? "bg-blue-50 text-blue-600 shadow-sm"
-                      : "text-gray-600 hover:text-blue-600 hover:bg-gray-50"
+                      ? "bg-blue-600 text-white"
+                      : "text-gray-700 hover:bg-gray-100"
                   }`}
                 >
                   My Books
@@ -62,39 +60,39 @@ const Navbar = () => {
             </div>
 
             {/* User Actions */}
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center gap-3">
               {isAuthenticated ? (
                 <>
-                  <div className="hidden sm:flex items-center gap-2 px-4 py-2 bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg border border-gray-200">
-                    <div className="w-7 h-7 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white text-xs font-bold">
+                  <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-gray-100 rounded-lg">
+                    <div className="w-7 h-7 rounded-full bg-blue-600 flex items-center justify-center text-white text-sm font-semibold">
                       {user?.full_name.charAt(0).toUpperCase()}
                     </div>
-                    <span className="text-sm font-medium text-gray-700">
+                    <span className="text-sm font-medium text-gray-900">
                       {user?.full_name}
                     </span>
                   </div>
                   <button
                     onClick={handleLogout}
-                    className="px-5 py-2.5 text-sm font-medium text-red-600 hover:text-red-700 hover:bg-red-50 rounded-lg transition-all duration-200 border border-transparent hover:border-red-200"
+                    className="px-4 py-2 text-sm font-medium text-red-600 hover:bg-red-50 rounded-lg transition-colors"
                   >
                     Logout
                   </button>
                 </>
               ) : (
-                <div className="flex items-center gap-4 ">
+                <>
                   <Link
                     to="/login"
-                    className="p-10 text-sm font-medium text-gray-600 hover:text-blue-600 transition-colors duration-200 rounded-lg hover:bg-gray-50"
+                    className="px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
                   >
                     Login
                   </Link>
                   <Link
                     to="/register"
-                    className="text-sm font-medium text-white bg-blue-600 mr-10 transition-all duration-200"
+                    className="px-20 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors"
                   >
                     Sign Up
                   </Link>
-                </div>
+                </>
               )}
             </div>
           </div>
