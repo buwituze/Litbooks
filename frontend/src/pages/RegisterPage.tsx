@@ -34,7 +34,12 @@ const RegisterPage = () => {
       }),
     );
     if (registerUser.fulfilled.match(result)) {
-      navigate("/books", { replace: true });
+      navigate("/login", {
+        replace: true,
+        state: {
+          message: "Account created successfully! Please log in to continue.",
+        },
+      });
     }
   };
 

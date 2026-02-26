@@ -15,6 +15,8 @@ const LoginPage = () => {
   const dispatch = useAppDispatch();
   const { isLoading, error } = useAppSelector((state) => state.auth);
 
+  const successMessage = (location.state as any)?.message;
+
   const {
     register,
     handleSubmit,
@@ -37,6 +39,12 @@ const LoginPage = () => {
         Login to your account
       </h2>
 
+      {successMessage && (
+        <div className="mb-4 px-4 py-3  text-xs rounded relative">
+          <span className="block sm:inline">{successMessage}</span>
+        </div>
+      )}
+
       {error && (
         <div className="mb-4 bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded relative">
           <span className="block sm:inline">{error}</span>
@@ -55,13 +63,13 @@ const LoginPage = () => {
             htmlFor="username"
             className="block text-sm font-medium text-gray-700"
           >
-            Username
+            Email Address
           </label>
           <input
             {...register("username")}
             id="username"
-            type="text"
-            autoComplete="username"
+            type="email"
+            autoComplete="email"
             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
           />
           {errors.username && (
@@ -95,7 +103,7 @@ const LoginPage = () => {
         <button
           type="submit"
           disabled={isLoading}
-          className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:bg-gray-400 disabled:cursor-not-allowed"
+          className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary-500 hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 disabled:bg-gray-400 disabled:cursor-not-allowed"
         >
           {isLoading ? <ButtonLoader text="Logging in..." /> : "Login"}
         </button>
@@ -106,7 +114,7 @@ const LoginPage = () => {
           Don't have an account?{" "}
           <Link
             to="/register"
-            className="font-medium text-blue-600 hover:text-blue-500"
+            className="font-medium text-gray-600 hover:text-primary-500"
           >
             Sign up
           </Link>

@@ -38,13 +38,8 @@ export const register = createAsyncThunk(
   async (credentials: RegisterCredentials, { rejectWithValue }) => {
     try {
       const user = await authApi.register(credentials);
-      // Auto-login after registration
-      const loginResponse = await authApi.login({
-        username: credentials.email,
-        password: credentials.password,
-      });
-      localStorage.setItem('access_token', loginResponse.access_token);
-      return { token: loginResponse.access_token, user };
+      // Do NOT auto-login - user must manually log in after registration
+      return user;
     } catch (error: any) {
       return rejectWithValue(error.response?.data?.detail || 'Registration failed');
     }
@@ -103,11 +98,10 @@ const authSlice = createSlice({
         state.isLoading = true;
         state.error = null;
       })
-      .addCase(register.fulfilled, (state, action) => {
+      .addCase(register.fulfilled, (state) => {
+        // Do NOT log in the user after registration
+        // User must manually log in
         state.isLoading = false;
-        state.isAuthenticated = true;
-        state.token = action.payload.token;
-        state.user = action.payload.user;
         state.error = null;
       })
       .addCase(register.rejected, (state, action) => {
