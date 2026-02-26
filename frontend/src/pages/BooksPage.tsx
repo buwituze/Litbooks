@@ -38,10 +38,10 @@ const BooksPage = () => {
   }
 
   return (
-    <div className="max-w-7xl mx-auto">
+    <div className="max-w-7xl mx-auto mt-7">
       <div className="mb-8">
         <div className="mb-6">
-          <h1 className="text-3xl font-bold text-gray-900">All Books</h1>
+          <h1 className="text-xl font-bold text-gray-900">All Books</h1>
         </div>
 
         <div className="max-w-xl">
@@ -71,10 +71,6 @@ const BooksPage = () => {
         </div>
       ) : (
         <>
-          <div className="mb-4 text-sm text-gray-600">
-            Showing {filteredBooks.length}{" "}
-            {filteredBooks.length === 1 ? "book" : "books"}
-          </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredBooks.map((book: Book) => (
               <BookCard key={book.id} book={book} />

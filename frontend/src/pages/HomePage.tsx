@@ -27,7 +27,8 @@ const HomePage = () => {
           <div className="space-x-4">
             <Link
               to="/books"
-              className="inline-block px-8 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition text-lg font-semibold shadow-lg hover:shadow-xl transform hover:scale-105"
+              className="inline-block px-8 py-3 text-white rounded-lg transition-all text-lg font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 hover:opacity-90"
+              style={{ backgroundColor: "#7f8f87" }}
             >
               Browse Books
             </Link>
@@ -52,7 +53,7 @@ const HomePage = () => {
           <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
             <div className="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition transform hover:-translate-y-2">
               <div className="flex justify-center mb-6">
-                <BookOpen className="w-16 h-16 text-blue-600" />
+                <BookOpen className="w-16 h-16" style={{ color: "#7f8f87" }} />
               </div>
               <h3 className="text-2xl font-bold mb-4 text-center text-gray-900">
                 Discover
@@ -92,18 +93,22 @@ const HomePage = () => {
 
       {/* Call to Action Section */}
       {!isAuthenticated && (
-        <div className="py-20 bg-blue-600">
+        <div className="py-20" style={{ backgroundColor: "#7f8f87" }}>
           <div className="container mx-auto px-4 text-center">
             <h2 className="text-4xl font-bold text-white mb-6">
               Ready to Start Your Reading Journey?
             </h2>
-            <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
+            <p
+              className="text-xl mb-8 max-w-2xl mx-auto"
+              style={{ color: "#e8ebe9" }}
+            >
               Join book lovers celebrating African literature. Discover your
               next favorite book and share your reading experiences.
             </p>
             <Link
               to="/register"
-              className="inline-block px-12 py-4 bg-white text-blue-600 rounded-lg hover:bg-gray-100 transition text-lg font-bold shadow-xl hover:shadow-2xl transform hover:scale-105"
+              className="inline-block px-12 py-4 bg-white rounded-lg hover:bg-gray-100 transition text-lg font-bold shadow-xl hover:shadow-2xl transform hover:scale-105"
+              style={{ color: "#7f8f87" }}
             >
               Create Your Free Account
             </Link>

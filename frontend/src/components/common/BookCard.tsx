@@ -78,7 +78,7 @@ export const BookCard = ({
           <div className="mt-4 flex space-x-2">
             <Link
               to={`/books/${book.id}/edit`}
-              className="flex-1 text-center px-3 py-1 bg-blue-600 text-white text-sm rounded hover:bg-blue-700"
+              className="flex-1 text-center px-3 py-1 bg-black text-white text-sm rounded hover:bg-black/90"
               onClick={(e) => e.stopPropagation()}
             >
               Edit

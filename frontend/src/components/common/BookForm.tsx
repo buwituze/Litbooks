@@ -180,7 +180,7 @@ export const BookForm = ({
         <button
           type="submit"
           disabled={isLoading}
-          className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition"
+          className="px-6 py-2 bg-black text-white rounded-md hover:bg-black/90 disabled:bg-gray-400 disabled:cursor-not-allowed transition"
         >
           {isLoading ? <ButtonLoader text={submitLabel} /> : submitLabel}
         </button>

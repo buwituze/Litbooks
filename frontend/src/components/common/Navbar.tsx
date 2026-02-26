@@ -26,7 +26,10 @@ const Navbar = () => {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 group">
-            <Library className="w-8 h-8 text-blue-600 group-hover:scale-110 transition-transform" />
+            <Library
+              className="w-8 h-8 group-hover:scale-110 transition-transform"
+              style={{ color: "#7f8f87" }}
+            />
             <span className="text-xl font-bold text-gray-900">Litbooks</span>
           </Link>
 
@@ -38,9 +41,10 @@ const Navbar = () => {
                 to="/books"
                 className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                   isActive("/books")
-                    ? "bg-blue-600 text-white"
+                    ? "text-white"
                     : "text-gray-700 hover:bg-gray-100"
                 }`}
+                style={isActive("/books") ? { backgroundColor: "#7f8f87" } : {}}
               >
                 All Books
               </Link>
@@ -49,9 +53,12 @@ const Navbar = () => {
                   to="/my-books"
                   className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                     isActive("/my-books")
-                      ? "bg-blue-600 text-white"
+                      ? "text-white"
                       : "text-gray-700 hover:bg-gray-100"
                   }`}
+                  style={
+                    isActive("/my-books") ? { backgroundColor: "#7f8f87" } : {}
+                  }
                 >
                   My Books
                 </Link>
@@ -63,7 +70,10 @@ const Navbar = () => {
               {isAuthenticated ? (
                 <>
                   <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-gray-100 rounded-lg">
-                    <div className="w-7 h-7 rounded-full bg-blue-600 flex items-center justify-center text-white text-sm font-semibold">
+                    <div
+                      className="w-7 h-7 rounded-full flex items-center justify-center text-white text-sm font-semibold"
+                      style={{ backgroundColor: "#7f8f87" }}
+                    >
                       {user?.full_name.charAt(0).toUpperCase()}
                     </div>
                     <span className="text-sm font-medium text-gray-900">
@@ -87,7 +97,8 @@ const Navbar = () => {
                   </Link>
                   <Link
                     to="/register"
-                    className="px-20 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors"
+                    className="px-20 py-2 text-sm font-medium text-white rounded-lg transition-all hover:opacity-90"
+                    style={{ backgroundColor: "#7f8f87" }}
                   >
                     Sign Up
                   </Link>

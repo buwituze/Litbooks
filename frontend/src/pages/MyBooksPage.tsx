@@ -65,11 +65,11 @@ const MyBooksPage = () => {
 
   return (
     <div className="max-w-7xl mx-auto">
-      <div className="flex justify-between items-center mb-8">
+      <div className="flex justify-between items-center mb-8 mt-7">
         <h1 className="text-3xl font-bold text-gray-900">My Books</h1>
         <button
           onClick={() => setShowAddModal(true)}
-          className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
+          className="px-4 py-2 bg-[#7f8f87] text-white rounded-md hover:bg-[#7f8f87]/90 transition"
         >
           + Add Book
         </button>
@@ -90,7 +90,7 @@ const MyBooksPage = () => {
           </p>
           <button
             onClick={() => setShowAddModal(true)}
-            className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
+            className="px-6 py-2 bg-black text-white rounded-md hover:bg-black/90 transition"
           >
             Add Your First Book
           </button>

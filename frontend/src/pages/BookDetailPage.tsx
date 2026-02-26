@@ -67,10 +67,10 @@ const BookDetailPage = () => {
   }
 
   return (
-    <div className="max-w-4xl mx-auto">
+    <div className="max-w-4xl mx-auto mt-7">
       <Link
         to="/books"
-        className="text-blue-600 hover:underline mb-4 inline-block"
+        className="text-gray-500 text-sm hover:underline mb-4 inline-block"
       >
         ← Back to books
       </Link>
@@ -94,10 +94,10 @@ const BookDetailPage = () => {
           <div className="md:w-2/3 p-8">
             <div className="flex justify-between items-start mb-4">
               <div>
-                <h1 className="text-3xl font-bold text-gray-900 mb-2">
+                <h1 className="text-xl font-bold text-gray-900 mb-2">
                   {currentBook.title}
                 </h1>
-                <p className="text-xl text-gray-600">by {currentBook.author}</p>
+                <p className="text-lg text-gray-600">by {currentBook.author}</p>
               </div>
               {currentBook.tags && currentBook.tags.length > 0 && (
                 <span className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">
@@ -108,17 +108,19 @@ const BookDetailPage = () => {
 
             <div className="space-y-3 mb-6">
               <div>
-                <span className="font-semibold">Added:</span>{" "}
+                <span className="font-semibold text-sm">Added:</span>
+                {"  "}
                 {formatDate(currentBook.created_at)}
               </div>
               <div>
-                <span className="font-semibold">Last Updated:</span>{" "}
+                <span className="font-semibold text-sm">Last Updated:</span>
+                {"  "}
                 {formatDate(currentBook.updated_at)}
               </div>
               {currentBook.tags && currentBook.tags.length > 0 && (
                 <div>
-                  <span className="font-semibold">Tags:</span>{" "}
                   <div className="flex flex-wrap gap-2 mt-1">
+                    <span className="font-semibold">Tags:</span>{" "}
                     {currentBook.tags.map((tag) => (
                       <span
                         key={tag.id}
@@ -134,8 +136,10 @@ const BookDetailPage = () => {
 
             {currentBook.description && (
               <div className="mb-6">
-                <h3 className="font-semibold text-lg mb-2">Description</h3>
-                <p className="text-gray-700">{currentBook.description}</p>
+                <h3 className=" text-sm mb-2">Description</h3>
+                <p className="text-gray-700 text-sm">
+                  {currentBook.description}
+                </p>
               </div>
             )}
 
@@ -143,7 +147,7 @@ const BookDetailPage = () => {
               <div className="flex space-x-4">
                 <Link
                   to={`/books/${currentBook.id}/edit`}
-                  className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+                  className="px-4 py-2 bg-black text-white rounded hover:bg-black/90"
                 >
                   Edit Book
                 </Link>
