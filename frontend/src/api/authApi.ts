@@ -1,5 +1,5 @@
 import { axiosInstance } from './axios';
-import type { LoginCredentials, RegisterCredentials, AuthResponse, User } from '../types';
+import type { LoginCredentials, RegisterCredentials, AuthResponse, User, ChangePasswordData } from '../types';
 
 export const authApi = {
   login: async (credentials: LoginCredentials): Promise<AuthResponse> => {
@@ -26,6 +26,11 @@ export const authApi = {
 
   getCurrentUser: async (): Promise<User> => {
     const response = await axiosInstance.get<User>('/auth/me');
+    return response.data;
+  },
+
+  changePassword: async (data: ChangePasswordData): Promise<{ message: string }> => {
+    const response = await axiosInstance.post<{ message: string }>('/auth/change-password', data);
     return response.data;
   },
 

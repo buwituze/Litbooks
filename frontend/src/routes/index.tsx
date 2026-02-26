@@ -11,6 +11,8 @@ const RegisterPage = lazy(() => import("../pages/RegisterPage"));
 const BooksPage = lazy(() => import("../pages/BooksPage"));
 const BookDetailPage = lazy(() => import("../pages/BookDetailPage"));
 const MyBooksPage = lazy(() => import("../pages/MyBooksPage"));
+const ProfilePage = lazy(() => import("../pages/ProfilePage"));
+const SettingsPage = lazy(() => import("../pages/SettingsPage"));
 const NotFoundPage = lazy(() => import("../pages/NotFoundPage"));
 
 const routes: RouteObject[] = [
@@ -35,6 +37,22 @@ const routes: RouteObject[] = [
         element: (
           <ProtectedRoute>
             <MyBooksPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "profile",
+        element: (
+          <ProtectedRoute>
+            <ProfilePage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "settings",
+        element: (
+          <ProtectedRoute>
+            <SettingsPage />
           </ProtectedRoute>
         ),
       },
