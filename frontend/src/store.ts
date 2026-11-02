@@ -10,7 +10,6 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
-        // Ignore these action types if needed
         ignoredActions: ['your/action/type'],
       },
     }),
