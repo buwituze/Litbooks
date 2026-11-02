@@ -329,6 +329,18 @@ All passwords must contain:
 
 ## Testing the API
 
+### Automated Tests (pytest)
+
+The test suite runs against a temporary SQLite database, so PostgreSQL and `.env` are not needed.
+
+```bash
+pip install -r requirements.txt
+pytest
+```
+
+- `tests/test_auth.py` - registration, login, token validation
+- `tests/test_books.py` - creating, updating and deleting books, and checks that regular users get `403` on admin actions
+
 ### Using Swagger UI
 
 1. Start the server: `uvicorn main:app --reload`
@@ -418,3 +430,6 @@ All dependencies are listed in `requirements.txt`:
 - asyncpg - PostgreSQL async driver
 - psycopg2-binary - PostgreSQL sync driver (backup)
 - python-dotenv - Environment variable loading
+- pytest - Test runner
+- httpx - HTTP client used by FastAPI's TestClient
+- aiosqlite - Async SQLite driver for the test database
