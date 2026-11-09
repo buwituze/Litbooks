@@ -1,10 +1,12 @@
 # Litbooks
 
-A modern full-stack book management platform with user authentication and role-based access control.
+A modern book management platform with user authentication and role-based access control.
 
 ## What is Litbooks?
 
-Litbooks is a mini-Goodreads clone that allows users to browse books and admins to manage a book catalog. It features a React frontend with TypeScript and a FastAPI backend with PostgreSQL database.
+LitBooks helps readers find and explore books in a shared catalog, while giving administrators tools to maintain that catalog. The application brings book discovery and catalog management together in one place, with search and detailed book pages for readers and protected create, edit, and delete workflows for administrators.
+
+The frontend is a React and TypeScript single-page application backed by a FastAPI REST API and PostgreSQL. JWT authentication identifies signed-in users, and role-based access control protects administrative features. Book search is debounced so the interface can respond as users type without sending a request for every keystroke.
 
 ## Project Structure
 
@@ -35,7 +37,7 @@ Litbooks/
 **Technical Features:**
 
 - JWT-based authentication with role-based access
-- Real-time search with debouncing
+- Debounced book search to limit requests while users type
 - Responsive design
 - Optimistic UI updates
 - Protected routes
@@ -219,6 +221,8 @@ All passwords must have:
 
 ## Environment Variables
 
+Note that these are example credentials:
+
 ### Backend (.env)
 
 ```env
@@ -234,7 +238,7 @@ ADMIN_FULL_NAME=Admin User
 ### Frontend (.env)
 
 ```env
-VITE_API_URL=http://localhost:8000
+VITE_API_URL=URL
 ```
 
 ## Development Notes
@@ -251,7 +255,3 @@ For detailed information:
 
 - [Backend Documentation](backend/README.md)
 - [Frontend Documentation](frontend/README.md)
-
-## License
-
-This project is for educational purposes.
